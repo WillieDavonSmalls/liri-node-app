@@ -1,7 +1,7 @@
 require("dotenv").config();
 
+//movie_this command
 var omdbApi = require('omdb-client');
-
 var movie;
 
 if (process.argv[3] !== undefined){ 
@@ -27,25 +27,13 @@ function movie_this(movie){
     });
 }
 
+if (process.argv[2] === "movie_this"){
+    movie_this(movie);
+}
 
 
 
-// var Spotify = require('node-spotify-api');
-// var spotify = new Spotify({
-//     id: "cd75cbbd0ec641c9961f1be9b118598f",
-//     secret: "45972209e2294c7eb3a6375be90eb520"
-//   });
-
-       
-//     spotify.search({ type: "track", query: "Work" }, function(err, data) {
-//         if (err) {
-//             return console.log('Error occurred: ' + err);
-//         }
-        
-//         console.log(data); 
-//     });
-
-
+//Twitter command
 var Twitter = require('twitter');
  
 var client = new Twitter({
@@ -54,10 +42,36 @@ var client = new Twitter({
   access_token_key: '833877825476296704-c6t0urYGgeBKMwyWLXSANXKsapfXVor',
   access_token_secret: 'ucCuM4pLriA1up5OjBqTcxFFLC1vjhCUvnjNWW5ltIAZC'
 });
- 
 var params = {screen_name: 'nodejs'};
-client.get('statuses/user_timeline', params, function(error, tweets, response) {
-  if (!error) {
-    console.log(response);
-  }
-});
+
+function my_tweets(){
+    client.get('statuses/user_timeline', params, function(error, tweets, response) {
+    if (!error) {
+        
+        for (var i = 0; i < 20; i++){
+        console.log('Date: ' + tweets[i].created_at + '\n' +' '+ tweets[i].text + '\n' + '\n');
+        }
+    }
+    });
+}
+
+if (process.argv[2] === "my_tweets"){
+    my_tweets();
+}
+
+
+//Spotify
+var Spotify = require('node-spotify-api');
+var spotify = new Spotify({
+    id: "cd75cbbd0ec641c9961f1be9b118598f",
+    secret: "45972209e2294c7eb3a6375be90eb520"
+  });
+
+       
+    spotify.search({ type: "track", query: "Work" }, function(err, data) {
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        }
+        
+        console.log(data); 
+    });
