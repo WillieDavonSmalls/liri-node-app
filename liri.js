@@ -27,7 +27,7 @@ function movie_this(movie){
     });
 }
 
-if (process.argv[2] === "movie_this"){
+if (process.argv[2] === "movie-this"){
     movie_this(movie);
 }
 
@@ -53,7 +53,7 @@ function my_tweets(){
     });
 }
 
-if (process.argv[2] === "my_tweets"){
+if (process.argv[2] === "my-tweets"){
     my_tweets();
 }
 
@@ -61,7 +61,7 @@ if (process.argv[2] === "my_tweets"){
 //do what it says
 var fs = require('fs')
 
-if (process.argv[2] === "do_what_it_says"){
+if (process.argv[2] === "do-what-it-says"){
     var fileInfo = []
     fs.readFile('random.txt', 'utf8', function(error, data) {
     if (error) throw error;
@@ -70,15 +70,15 @@ if (process.argv[2] === "do_what_it_says"){
     var userTask = fileInfo[1];
     console.log(userCommand, userTask);
 
-    if (userCommand === "movie_this"){
+    if (userCommand === "movie-this"){
         movie_this(userTask);
     }
 
-    if (userCommand === "my_tweets"){
+    if (userCommand === "my-tweets"){
         my_tweets();
     }
 
-    if (userCommand === "spotify_this_song"){
+    if (userCommand === "spotify-this-song"){
         spotify_this_song(userTask);
     }
 
@@ -88,17 +88,17 @@ if (process.argv[2] === "do_what_it_says"){
 
 
 //Spotify
-// var Spotify = require('node-spotify-api');
-// var spotify = new Spotify({
-//     id: "cd75cbbd0ec641c9961f1be9b118598f",
-//     secret: "45972209e2294c7eb3a6375be90eb520"
-//   });
+var Spotify = require('node-spotify-api');
+var spotify = new Spotify({
+    id: "cd75cbbd0ec641c9961f1be9b118598f",
+    secret: "45972209e2294c7eb3a6375be90eb520"
+  });
 
        
-//     spotify.search({ type: "track", query: "Work" }, function(err, data) {
-//         if (err) {
-//             return console.log('Error occurred: ' + err);
-//         }
+    spotify.search({ type: "track", query: "Work" }, function(err, data) {
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        }
         
-//         console.log(data); 
-//     });
+        console.log(data); 
+    });
