@@ -1,13 +1,17 @@
 require("dotenv").config();
+var keys = require("./keys.js");
 
 //movie_this command
 var omdbApi = require('omdb-client');
 var movie;
+var song;
 
 if (process.argv[3] !== undefined){ 
     movie = process.argv[3]; 
+    song = process.argv[3];
 }else{
-    movie = "Mr. Nobody"
+    movie = "Mr. Nobody";
+    song = "The Sign";
 }
 
 function movie_this(movie){
@@ -33,13 +37,8 @@ if (process.argv[2] === "movie-this"){
 
 //Twitter command
 var Twitter = require('twitter');
- 
-var client = new Twitter({
-  consumer_key: 'l9utAFFpx93fn9QTSSShxykix',
-  consumer_secret: 'xoEnolNuHEZ5qZ5h9vp8UvL6tW8TL3M3fyEjYxGzcZd8eOoExl',
-  access_token_key: '833877825476296704-c6t0urYGgeBKMwyWLXSANXKsapfXVor',
-  access_token_secret: 'ucCuM4pLriA1up5OjBqTcxFFLC1vjhCUvnjNWW5ltIAZC'
-});
+
+var client = new Twitter(keys.twitter);
 var params = {screen_name: 'nodejs'};
 
 function my_tweets(){
@@ -89,16 +88,28 @@ if (process.argv[2] === "do-what-it-says"){
 
 //Spotify
 var Spotify = require('node-spotify-api');
-var spotify = new Spotify({
-    id: "cd75cbbd0ec641c9961f1be9b118598f",
-    secret: "45972209e2294c7eb3a6375be90eb520"
-  });
 
-       
-    spotify.search({ type: "track", query: "Work" }, function(err, data) {
+var spotify = new Spotify(keys.spotify);
+
+function spotify_this(song){
+    spotify.search({ type: 'track', query: song, limit: 5  }, function(err, data) {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
         
-        console.log(data); 
+        for (var i = 0; i < 5; i++){
+            //preview link 
+            console.log('Preview Link: ' + data.tracks.items[i].href);
+            //artist name
+            console.log('Artist Name: ' + data.tracks.items[i].album.artists[0].name);
+            //song name
+            console.log('Song Name: ' + data.tracks.items[i].name);
+            //album name 
+            console.log('Album Name: ' + data.tracks.items[i].album.name);
+        }
     });
+}
+
+if (process.argv[2] === "spotify-this-song"){
+    spotify_this(song);
+}
