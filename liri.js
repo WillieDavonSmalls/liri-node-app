@@ -31,8 +31,6 @@ if (process.argv[2] === "movie_this"){
     movie_this(movie);
 }
 
-
-
 //Twitter command
 var Twitter = require('twitter');
  
@@ -60,18 +58,47 @@ if (process.argv[2] === "my_tweets"){
 }
 
 
+//do what it says
+var fs = require('fs')
+
+if (process.argv[2] === "do_what_it_says"){
+    var fileInfo = []
+    fs.readFile('random.txt', 'utf8', function(error, data) {
+    if (error) throw error;
+    fileInfo = data.split(',');
+    var userCommand = fileInfo[0];
+    var userTask = fileInfo[1];
+    console.log(userCommand, userTask);
+
+    if (userCommand === "movie_this"){
+        movie_this(userTask);
+    }
+
+    if (userCommand === "my_tweets"){
+        my_tweets();
+    }
+
+    if (userCommand === "spotify_this_song"){
+        spotify_this_song(userTask);
+    }
+
+    });
+}
+
+
+
 //Spotify
-var Spotify = require('node-spotify-api');
-var spotify = new Spotify({
-    id: "cd75cbbd0ec641c9961f1be9b118598f",
-    secret: "45972209e2294c7eb3a6375be90eb520"
-  });
+// var Spotify = require('node-spotify-api');
+// var spotify = new Spotify({
+//     id: "cd75cbbd0ec641c9961f1be9b118598f",
+//     secret: "45972209e2294c7eb3a6375be90eb520"
+//   });
 
        
-    spotify.search({ type: "track", query: "Work" }, function(err, data) {
-        if (err) {
-            return console.log('Error occurred: ' + err);
-        }
+//     spotify.search({ type: "track", query: "Work" }, function(err, data) {
+//         if (err) {
+//             return console.log('Error occurred: ' + err);
+//         }
         
-        console.log(data); 
-    });
+//         console.log(data); 
+//     });
