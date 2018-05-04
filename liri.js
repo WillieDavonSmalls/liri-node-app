@@ -62,26 +62,36 @@ var fs = require('fs')
 
 if (process.argv[2] === "do-what-it-says"){
     var fileInfo = []
+    // 1) console log file info make sure that is storing the data correctly
     fs.readFile('random.txt', 'utf8', function(error, data) {
-    if (error) throw error;
-    fileInfo = data.split(',');
-    var userCommand = fileInfo[0];
-    var userTask = fileInfo[1];
-    console.log(userCommand, userTask);
+        if (error) throw error;
+        fileInfo = data.split(',');
 
-    if (userCommand === "movie-this"){
-        movie_this(userTask);
-    }
+        // console.log('"' + fileInfo[0] + '"' + "Hello World");
+        // 2) Make sure this value is what it needs to be
+        var userCommand = fileInfo[0];
 
-    if (userCommand === "my-tweets"){
-        my_tweets();
-    }
+        var userTask = fileInfo[1];
 
-    if (userCommand === "spotify-this-song"){
-        spotify_this_song(userTask);
-    }
+        //use a switch with 1, 2, 3, to make it work.  
+
+        console.log(userCommand, userTask);
+
+        if (userCommand === "movie-this"){
+            movie_this(userTask);
+        }
+
+        if (userCommand === "my-tweets"){
+            my_tweets();
+        }
+
+        if (userCommand === "spotify-this-song"){
+            spotify_this(userTask);
+        }
 
     });
+
+
 }
 
 
